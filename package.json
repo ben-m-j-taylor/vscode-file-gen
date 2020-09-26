@@ -19,7 +19,20 @@
 				"command": "vscode-file-gen.helloWorld",
 				"title": "Hello World"
 			}
-		]
+		],
+		"configuration": {
+			"title": "VSCode File Gen",
+			"properties": {
+				"vscode-file-gen.file-template-groupings": {
+					"type": "array",
+					"description": "Groupings of file templates"
+				},
+				"vscode-file-gen.file-templates": {
+					"type": "array",
+					"description": "File template definitions"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
