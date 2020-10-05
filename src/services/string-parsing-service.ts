@@ -1,17 +1,6 @@
 import CasingType from '../enums/casing-type-enum';
 import Config from '../types/config/config';
 
-const TEMPLATE_STRING_START_CHARS = '&{';
-const TEMPLATE_STRING_END_CHARS = '}&';
-
-const parseTemplateStrings = (input: string, parentDirName: string, config: Config): string => {
-    const parsedInput = input;
-
-    const bagOfWords = getBagOfWords(parentDirName, config);
-
-    return parsedInput;
-};
-
 /**
  * getBagOfWords takes a string as input and returns an array of it's parts
  * e.g. "someInputString" -> ["some", "input", "string"]
@@ -38,4 +27,13 @@ const getBagOfWords = (input: string, config: Config): string[] => {
     return input.split(splitter).map((s) => s.toLowerCase());
 };
 
-export { parseTemplateStrings, getBagOfWords };
+/**
+ * getCamelCaseString takes a "bag of words" and returns them as a camelCase string
+ * @param bagOfWords The "bag of words" to convert to camelCase
+ * @returns A camelCase formatted string
+ */
+const getCamelCaseString = (bagOfWords: string[]): string => {
+    return bagOfWords.map((s, i) => (i > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s)).join('');
+};
+
+export { getBagOfWords, getCamelCaseString };

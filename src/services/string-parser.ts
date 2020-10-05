@@ -1,5 +1,5 @@
 import Config from '../types/config/config';
-import { getBagOfWords } from './string-parsing-service';
+import { getBagOfWords, getCamelCaseString } from './string-parsing-service';
 
 class StringParser {
     private TEMPLATE_STRING_START_CHARS = '&{';
@@ -16,9 +16,21 @@ class StringParser {
     }
 
     public parse(input: string): string {
-        console.log('StringParser - parse() - this.bagOfWords', this.bagOfWords);
+        let parsedString = input;
 
-        return input;
+        // Parse camelCase
+        const matchingString = `${this.TEMPLATE_STRING_START_CHARS}CAMEL_CASE${this.TEMPLATE_STRING_END_CHARS}`;
+
+        const camelCaseValue = getCamelCaseString(this.bagOfWords);
+
+        parsedString = parsedString.replace(matchingString, camelCaseValue);
+
+        // Parse PascalCase
+
+        // Parse snake_case
+
+        // Parse kebab-case
+        return parsedString;
     }
 }
 
