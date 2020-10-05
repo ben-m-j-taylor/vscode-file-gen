@@ -63,7 +63,7 @@ export function activate(context: vscode.ExtensionContext): void {
             }
         }
 
-        vscode.window.showInformationMessage('Hello World from vscode-file-gen!');
+        vscode.window.showInformationMessage('Files sucessfully generated.');
     });
 
     context.subscriptions.push(disposable);
