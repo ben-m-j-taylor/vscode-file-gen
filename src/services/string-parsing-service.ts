@@ -6,7 +6,7 @@ import Config from '../types/config/config';
  * e.g. "someInputString" -> ["some", "input", "string"]
  * @param string
  */
-const getBagOfWords = (input: string, config: Config): string[] => {
+export const getBagOfWords = (input: string, config: Config): string[] => {
     let splitter: RegExp | string = '';
 
     switch (config.directoryNameCasing) {
@@ -32,7 +32,7 @@ const getBagOfWords = (input: string, config: Config): string[] => {
  * @param bagOfWords The "bag of words" to convert to camelCase
  * @returns A camelCase formatted string
  */
-const getCamelCaseString = (bagOfWords: string[]): string => {
+export const getCamelCaseString = (bagOfWords: string[]): string => {
     return bagOfWords.map((s, i) => (i > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s)).join('');
 };
 
@@ -41,7 +41,7 @@ const getCamelCaseString = (bagOfWords: string[]): string => {
  * @param bagOfWords The "bag of words" to convert to PascalCase
  * @returns A PascalCase formatted string
  */
-const getPascalCaseString = (bagOfWords: string[]): string => {
+export const getPascalCaseString = (bagOfWords: string[]): string => {
     return bagOfWords.map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join('');
 };
 
@@ -50,7 +50,7 @@ const getPascalCaseString = (bagOfWords: string[]): string => {
  * @param bagOfWords The "bag of words" to convert to snake_case
  * @returns A snake_case formatted string
  */
-const getSnakeCaseString = (bagOfWords: string[]): string => {
+export const getSnakeCaseString = (bagOfWords: string[]): string => {
     return bagOfWords.join('_');
 };
 
@@ -59,8 +59,6 @@ const getSnakeCaseString = (bagOfWords: string[]): string => {
  * @param bagOfWords The "bag of words" to convert to kebab-case
  * @returns A kebab-case formatted string
  */
-const getKebabCaseString = (bagOfWords: string[]): string => {
+export const getKebabCaseString = (bagOfWords: string[]): string => {
     return bagOfWords.join('-');
 };
-
-export { getBagOfWords, getCamelCaseString, getPascalCaseString, getSnakeCaseString, getKebabCaseString };

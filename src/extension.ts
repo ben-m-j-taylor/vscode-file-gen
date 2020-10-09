@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
 
 import { getConfig } from './services/config-service';
 import { getInputDataFromUI } from './services/input-ui-service';
@@ -46,9 +45,21 @@ export function activate(context: vscode.ExtensionContext): void {
                         continue;
                     }
 
-                    // TODO: Create a sub-directory if needed
+                    if (fileTemplate.generatedFileName.includes('/')) {
+                        const parts = fileTemplate.generatedFileName.split('/');
 
-                    const newFilePath = `${parentDirPath}/${stringParser.parse(fileTemplate.generatedFileName)}.txt`;
+                        if (parts.length === 2) {
+                            const subDirPath = `${parentDirPath}/${parts[0]}`;
+
+                            const subDirCreated = createDirectory(subDirPath);
+
+                            if (!subDirCreated) {
+                                return;
+                            }
+                        }
+                    }
+
+                    const newFilePath = `${parentDirPath}/${stringParser.parse(fileTemplate.generatedFileName)}`;
 
                     const fileTemplateContents = importFileContents(
                         `${config.workspaceRoot}/${fileTemplate.fileTemplatePath}`,

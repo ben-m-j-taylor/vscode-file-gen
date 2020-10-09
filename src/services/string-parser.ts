@@ -8,9 +8,6 @@ import {
 } from './string-parsing-service';
 
 class StringParser {
-    private START_CHARS = '&{';
-    private END_CHARS = '}&';
-
     private bagOfWords: string[];
 
     constructor(parentDirName: string, config: Config) {
@@ -20,35 +17,47 @@ class StringParser {
     public parse(input: string): string {
         let parsedString = input;
 
-        // Parse camelCase
-        const camelCaseMatchingString = `${this.START_CHARS}CAMEL_CASE${this.END_CHARS}`;
+        parsedString = this.replaceCamelCaseTemplateString(parsedString);
 
-        const camelCaseValue = getCamelCaseString(this.bagOfWords);
+        parsedString = this.replacePascalCaseTemplateString(parsedString);
 
-        parsedString = parsedString.replace(camelCaseMatchingString, camelCaseValue);
+        parsedString = this.replaceSnakeCaseTemplateString(parsedString);
 
-        // Parse PascalCase
-        const pascalCaseMatchingString = `${this.START_CHARS}PASCAL_CASE${this.END_CHARS}`;
-
-        const pascalCaseValue = getPascalCaseString(this.bagOfWords);
-
-        parsedString = parsedString.replace(pascalCaseMatchingString, pascalCaseValue);
-
-        // Parse snake_case
-        const snakeCaseMatchingString = `${this.START_CHARS}SNAKE_CASE${this.END_CHARS}`;
-
-        const snakeCaseValue = getSnakeCaseString(this.bagOfWords);
-
-        parsedString = parsedString.replace(snakeCaseMatchingString, snakeCaseValue);
-
-        // Parse kebab-case
-        const kebabCaseMatchingString = `${this.START_CHARS}KEBAB_CASE${this.END_CHARS}`;
-
-        const kebabCaseValue = getKebabCaseString(this.bagOfWords);
-
-        parsedString = parsedString.replace(kebabCaseMatchingString, kebabCaseValue);
+        parsedString = this.replaceKebabCaseTemplateString(parsedString);
 
         return parsedString;
+    }
+
+    public replaceCamelCaseTemplateString(input: string): string {
+        const regex = /&{CAMEL_CASE}&/g;
+
+        const value = getCamelCaseString(this.bagOfWords);
+
+        return input.replace(regex, value);
+    }
+
+    public replacePascalCaseTemplateString(input: string): string {
+        const regex = /&{PASCAL_CASE}&/g;
+
+        const value = getPascalCaseString(this.bagOfWords);
+
+        return input.replace(regex, value);
+    }
+
+    public replaceSnakeCaseTemplateString(input: string): string {
+        const regex = /&{SNAKE_CASE}&/g;
+
+        const value = getSnakeCaseString(this.bagOfWords);
+
+        return input.replace(regex, value);
+    }
+
+    public replaceKebabCaseTemplateString(input: string): string {
+        const regex = /&{KEBAB_CASE}&/g;
+
+        const value = getKebabCaseString(this.bagOfWords);
+
+        return input.replace(regex, value);
     }
 }
 
