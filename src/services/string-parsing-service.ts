@@ -36,4 +36,31 @@ const getCamelCaseString = (bagOfWords: string[]): string => {
     return bagOfWords.map((s, i) => (i > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s)).join('');
 };
 
-export { getBagOfWords, getCamelCaseString };
+/**
+ * getPascalCaseString takes a "bag of words" and returns them as a PascalCase string
+ * @param bagOfWords The "bag of words" to convert to PascalCase
+ * @returns A PascalCase formatted string
+ */
+const getPascalCaseString = (bagOfWords: string[]): string => {
+    return bagOfWords.map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join('');
+};
+
+/**
+ * getSnakeCaseString takes a "bag of words" and returns them as a snake_case string
+ * @param bagOfWords The "bag of words" to convert to snake_case
+ * @returns A snake_case formatted string
+ */
+const getSnakeCaseString = (bagOfWords: string[]): string => {
+    return bagOfWords.join('_');
+};
+
+/**
+ * getKebabCaseString takes a "bag of words" and returns them as a kebab-case string
+ * @param bagOfWords The "bag of words" to convert to kebab-case
+ * @returns A kebab-case formatted string
+ */
+const getKebabCaseString = (bagOfWords: string[]): string => {
+    return bagOfWords.join('-');
+};
+
+export { getBagOfWords, getCamelCaseString, getPascalCaseString, getSnakeCaseString, getKebabCaseString };

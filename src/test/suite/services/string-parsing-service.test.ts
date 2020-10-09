@@ -3,7 +3,13 @@ import * as assert from 'assert';
 import Config from '../../../types/config/config';
 import CasingType from '../../../enums/casing-type-enum';
 
-import { getBagOfWords, getCamelCaseString } from '../../../services/string-parsing-service';
+import {
+    getBagOfWords,
+    getCamelCaseString,
+    getKebabCaseString,
+    getPascalCaseString,
+    getSnakeCaseString,
+} from '../../../services/string-parsing-service';
 
 suite('String Parsing Service Tests', () => {
     const defaultConfig: Config = {
@@ -53,5 +59,23 @@ suite('String Parsing Service Tests', () => {
         const camelCaseString = getCamelCaseString(['some', 'test', 'string']);
 
         assert.strictEqual(camelCaseString, 'someTestString');
+    });
+
+    test('getPascalCaseString return a PascalCase formatted string when given a "bag of words"', () => {
+        const pascalCaseString = getPascalCaseString(['some', 'test', 'string']);
+
+        assert.strictEqual(pascalCaseString, 'SomeTestString');
+    });
+
+    test('getSnakeCaseString return a snake_case formatted string when given a "bag of words"', () => {
+        const snakeCaseString = getSnakeCaseString(['some', 'test', 'string']);
+
+        assert.strictEqual(snakeCaseString, 'some_test_string');
+    });
+
+    test('getKebabCaseString return a kebab-case formatted string when given a "bag of words"', () => {
+        const kebabCaseString = getKebabCaseString(['some', 'test', 'string']);
+
+        assert.strictEqual(kebabCaseString, 'some-test-string');
     });
 });
