@@ -10,16 +10,24 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:vscode-file-gen.helloWorld"
+		"onCommand:vscode-file-gen.generate-files"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscode-file-gen.helloWorld",
-				"title": "Hello World"
+				"command": "vscode-file-gen.generate-files",
+				"when": "false"
 			}
 		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "vscode-file-gen.generate-files",
+					"group": "file gen"
+				}
+			]
+		},
 		"configuration": {
 			"title": "VSCode File Gen",
 			"properties": {

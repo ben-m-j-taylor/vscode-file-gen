@@ -14,6 +14,7 @@ import {
 suite('String Parsing Service Tests', () => {
     const defaultConfig: Config = {
         workspaceRoot: '/',
+        rootDir: '/',
         directoryNameCasing: CasingType.camelCase,
         fileTemplateGroupings: [],
         fileTemplates: [],

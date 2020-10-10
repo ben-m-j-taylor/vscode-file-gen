@@ -8,6 +8,7 @@ import StringParser from '../../../services/string-parser';
 suite('String Parser Tests', () => {
     const defaultConfig: Config = {
         workspaceRoot: '/',
+        rootDir: '/',
         directoryNameCasing: CasingType.camelCase,
         fileTemplateGroupings: [],
         fileTemplates: [],
