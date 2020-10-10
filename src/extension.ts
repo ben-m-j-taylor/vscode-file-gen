@@ -14,11 +14,7 @@ export function activate(context: vscode.ExtensionContext): void {
         async ({ fsPath }: { fsPath: string }) => {
             const config = getConfig(fsPath);
 
-            // TODO: Validate config
-
             const { selectedGrouping, parentDirName } = await getInputDataFromUI(config);
-
-            // TODO: Validate user inputs
 
             const stringParser = new StringParser(parentDirName, config);
 
