@@ -10,7 +10,7 @@ const getInputDataFromUI = async (config: Config): Promise<{ selectedGrouping: s
 
     inputData.selectedGrouping = (await showGroupingSelect(config)) ?? '';
 
-    inputData.parentDirName = (await showParentDirNameInput()) ?? '';
+    inputData.parentDirName = (await showParentDirNameInput(config)) ?? '';
 
     return inputData;
 };
@@ -18,13 +18,17 @@ const getInputDataFromUI = async (config: Config): Promise<{ selectedGrouping: s
 const showGroupingSelect = async (config: Config): Promise<string | undefined> => {
     const quickPickItems: string[] = config.fileTemplateGroupings.map((x) => x.name);
 
-    const selectedItem = await vscode.window.showQuickPick(quickPickItems);
+    const selectedItem = await vscode.window.showQuickPick(quickPickItems, {
+        placeHolder: 'Choose your template grouping.',
+    });
 
     return selectedItem;
 };
 
-const showParentDirNameInput = async (): Promise<string | undefined> => {
-    const value = await vscode.window.showInputBox();
+const showParentDirNameInput = async (config: Config): Promise<string | undefined> => {
+    const value = await vscode.window.showInputBox({
+        placeHolder: `Enter the parent directory name in ${config.directoryNameCasing}.`,
+    });
 
     return value;
 };
