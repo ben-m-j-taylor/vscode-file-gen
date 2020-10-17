@@ -17,7 +17,8 @@
 		"commands": [
 			{
 				"command": "vscode-file-gen.generate-files",
-				"when": "false"
+				"when": "false",
+				"title": "Generate files"
 			}
 		],
 		"menus": {
