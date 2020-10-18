@@ -52,11 +52,13 @@ This specifies the mappings for files that you'd like to be able to generate and
 Example:
 
 ```json
-{
-    "name": "Component",
-    "generatedFileName": "&{PASCAL_CASE}&.tsx",
-    "fileTemplatePath": ".config/file_templates/react-component.txt"
-}
+"vscode-file-gen.file-templates": [
+    {
+        "name": "Component",
+        "generatedFileName": "&{PASCAL_CASE}&.tsx",
+        "fileTemplatePath": ".config/file_templates/react-component.txt"
+    }
+]
 ```
 
 ### 4. Groupings of file templates
@@ -68,10 +70,12 @@ The different groupings of file templates that you'd like to be able to generate
 Example:
 
 ```json
-{
-    "name": "Component with styles",
-    "files": [ "Index", "Component", "Styles" ]
-}
+"vscode-file-gen.file-template-groupings": [
+    {
+        "name": "Component with styles",
+        "files": [ "Index", "Component", "Styles" ]
+    }
+]
 ```
 
 ## How to use
