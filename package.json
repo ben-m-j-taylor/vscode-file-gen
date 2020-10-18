@@ -2,6 +2,10 @@
 	"name": "vscode-file-gen",
 	"displayName": "vscode-file-gen",
 	"description": "A VSCode extension for generating sets of files based on user specified templates",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ben-m-j-taylor/vscode-file-gen"
+	},
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.49.0"
