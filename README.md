@@ -28,7 +28,7 @@ const &{PASCAL_CASE}&: FC = () => (
 export default &{PASCAL_CASE}&;
 ```
 
-Would genearate this file:
+Would generate this file:
 
 ```tsx
 import React, { FC } from 'react';
