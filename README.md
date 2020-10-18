@@ -3,7 +3,7 @@ A VSCode extension for generating sets of files based on user specified template
 
 A semi opinionated file generator, aimed at being a language agnostic way of quickly generating sets of files to remove the need to endlessley type out boiler plate code.
 
-If you find any issues, have a feature request or have any question please create an issue on GitHub or submit a PR if appropriate.
+If you find any issues, have a feature request or have any questions please create an issue on GitHub or submit a PR if appropriate.
 
 ##  Configuration steps
 For the extension to work there are a few things that must be configured.
