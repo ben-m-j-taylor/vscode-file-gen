@@ -10,16 +10,33 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:vscode-file-gen.helloWorld"
+        "onCommand:vscode-file-gen.generateFilesInDirectory",
+		"onCommand:vscode-file-gen.generateNewDirectoryWithFiles"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscode-file-gen.helloWorld",
-				"title": "Hello World"
+				"command": "vscode-file-gen.generateFilesInDirectory",
+				"title": "Generate files in directory"
+			},
+			{
+				"command": "vscode-file-gen.generateNewDirectoryWithFiles",
+				"title": "Generate new directory with files"
 			}
-		]
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "vscode-file-gen.generateFilesInDirectory",
+					"group": "file-gen"
+				},
+				{
+					"command": "vscode-file-gen.generateNewDirectoryWithFiles",
+					"group": "file-gen"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
