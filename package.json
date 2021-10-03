@@ -36,6 +36,36 @@
 					"group": "file-gen"
 				}
 			]
+		},
+		"configuration": {
+			"title": "VSCode File Gen",
+			"properties": {
+				"vscode-file-gen.directory-name-casing": {
+					"description": "The casing that will be used when specifying and parsing parent directory names",
+					"enum": [
+						"camelCase",
+						"PascalCase",
+						"snake_case",
+						"kebab-case"
+					],
+					"default": null
+				},
+				"vscode-file-gen.file-template-groups": {
+					"description": "Groups of file templates",
+					"type": "array",
+					"default": null
+				},
+				"vscode-file-gen.file-templates": {
+					"description": "File template definitions",
+					"type": "array",
+					"default": null
+				},
+				"vscode-file-gen.only-show-template-groups-in-picker": {
+					"description": "Only show template groups in the picker, instead of both groups and all file templates",
+					"type": "boolean",
+					"default": false
+				}
+			}
 		}
 	},
 	"scripts": {
