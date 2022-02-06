@@ -1,16 +1,11 @@
 import * as vscode from 'vscode';
 
+import generate from './generator';
+
 export function activate(context: vscode.ExtensionContext) {
-	
-	console.log('Extension "vscode-file-gen" activated!');
+	let disposable1 = vscode.commands.registerCommand('vscode-file-gen.generateFilesInDirectory', (...args) => generate(args[0].fsPath, false));
 
-	let disposable1 = vscode.commands.registerCommand('vscode-file-gen.generateFilesInDirectory', () => {
-		vscode.window.showInformationMessage('vscode-file-gen: Generating files in directory!');
-	});
-
-	let disposable2 = vscode.commands.registerCommand('vscode-file-gen.generateNewDirectoryWithFiles', () => {
-		vscode.window.showInformationMessage('vscode-file-gen: Generating new directory with files!');
-	});
+	let disposable2 = vscode.commands.registerCommand('vscode-file-gen.generateNewDirectoryWithFiles', (...args) => generate(args[0].fsPath, true));
 
 	context.subscriptions.push(disposable1);
 	context.subscriptions.push(disposable2);
