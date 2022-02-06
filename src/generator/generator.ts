@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 import { getConfig, validateConfig } from './config';
 
-const generate = (location: string, newDirectory: boolean) => {
+const generate = async (location: string, newDirectory: boolean) => {
   const config = getConfig();
 
   let { valid, validationErrors } = validateConfig(config);
@@ -16,6 +16,15 @@ const generate = (location: string, newDirectory: boolean) => {
     vscode.window.showInformationMessage('vscode-file-gen: Generating files in directory!');
   } else {
     vscode.window.showInformationMessage('vscode-file-gen: Generating new directory with files!');
+  }
+
+  const specifiedName = await vscode.window.showInputBox({
+    title: `Enter the name you would like to use in ${config.directoryNameCasing}`,
+    placeHolder: config.directoryNameCasing || ''
+  });
+
+  if (!specifiedName) {
+    return;
   }
 };
 
