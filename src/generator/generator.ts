@@ -5,6 +5,8 @@ import { getConfig, validateConfig } from './config';
 const generate = async (location: string, newDirectory: boolean) => {
   const config = getConfig();
 
+  console.log(`vscode-file-gen: generate: config`, config);
+
   let { valid, validationErrors } = validateConfig(config);
 
   if (!valid) {
@@ -24,6 +26,23 @@ const generate = async (location: string, newDirectory: boolean) => {
   });
 
   if (!specifiedName) {
+    return;
+  }
+
+  const templateGroupDefinitions = config.fileTemplateGroups?.map(tg => ({ label: tg.name, detail: tg.description || '' })) || [];
+
+  const templateDefinitions = config.fileTemplates?.map(t => ({ label: t.name, detail: t.description || '' })) || [];
+
+  const quickPickValues = [
+    { label: 'File Template Groups', kind: -1 },
+    ...templateGroupDefinitions,
+    { label: 'File Templates', kind: -1 },
+    ...templateDefinitions
+  ];
+
+  const templateOrTemplateGroup = await vscode.window.showQuickPick(quickPickValues);
+
+  if (!templateOrTemplateGroup) {
     return;
   }
 };
