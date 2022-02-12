@@ -1,9 +1,11 @@
 import * as vscode from 'vscode';
 
+import Casing from '../enums/casing';
 import type FileTemplate from '../types/fileTemplateType';
 
 import { getConfig, validateConfig } from './config';
 import { readFile } from './fileSystem';
+import parseName from './nameParser';
 
 const generate = async (location: string, newDirectory: boolean) => {
   const config = getConfig();
@@ -49,6 +51,13 @@ const generate = async (location: string, newDirectory: boolean) => {
     return;
   }
 
+  const { camelCaseName, pascalCaseName, snakeCaseName, kebabCaseName } = parseName(specifiedName, (config.directoryNameCasing as Casing));
+
+  console.log('vscode-file-gen: generate: camelCaseName', camelCaseName);
+  console.log('vscode-file-gen: generate: pascalCaseName', pascalCaseName);
+  console.log('vscode-file-gen: generate: snakeCaseName', snakeCaseName);
+  console.log('vscode-file-gen: generate: kebabCaseName', kebabCaseName);
+
   const templateGroupDefinition = config.fileTemplateGroups?.find(tg => tg.name === templateOrTemplateGroup.label);
   const templateDefinition = config.fileTemplates?.find(t => t.name === templateOrTemplateGroup.label);
 
@@ -90,9 +99,11 @@ const generate = async (location: string, newDirectory: boolean) => {
 
     if (error) {
       vscode.window.showErrorMessage(`vscode-file-gen: Unable to read template file at "${filePath}"`);
+      continue;
     }
-  }
 
+
+  }
 };
 
 export default generate;
