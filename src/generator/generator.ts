@@ -89,10 +89,10 @@ const generate = async (location: string, newDirectory: boolean) => {
     return;
   }
 
-  let parentDirectory = `${location}/`;
+  let parentDirectory = `${location}`;
 
   if (newDirectory) {
-    parentDirectory = `${location}/${specifiedName}/`;
+    parentDirectory = `${location}/${specifiedName}`;
 
     await createDirectory(vscode.Uri.file(parentDirectory));
   }
@@ -111,7 +111,7 @@ const generate = async (location: string, newDirectory: boolean) => {
     if (template.fileName.includes('/')) {
       const subDirectoryName = template.fileName.split('/')[0];
 
-      const subDirectoryPath = `${parentDirectory}/${subDirectoryName}/`;
+      const subDirectoryPath = `${parentDirectory}/${subDirectoryName}`;
 
       const subDirCreationError = await createDirectory(vscode.Uri.file(subDirectoryPath));
 
@@ -126,10 +126,16 @@ const generate = async (location: string, newDirectory: boolean) => {
 
     const parsedTemplate = parseTemplate(data, camelCaseName, pascalCaseName, snakeCaseName, kebabCaseName);
 
-    const fileCreationError = await createFile(vscode.Uri.file(`${parentDirectory}/${fileName}`), parsedTemplate);
+    const fileUri = vscode.Uri.file(`${parentDirectory}/${fileName}`);
+
+    const fileCreationError = await createFile(fileUri, parsedTemplate);
+
+    console.log(fileUri);
 
     if (fileCreationError) {
       vscode.window.showErrorMessage(`vscode-file-gen: Unable to create file for ${template.name} at "${fileCreationError}"`);
+    } else {
+      await vscode.window.showTextDocument(fileUri, { preserveFocus: true, preview: false });
     }
   }
 };
