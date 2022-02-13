@@ -1,4 +1,4 @@
-import { TextDecoder } from 'util';
+import { TextDecoder, TextEncoder } from 'util';
 import * as vscode from 'vscode';
 import type { Uri } from 'vscode';
 
@@ -20,4 +20,14 @@ const createDirectory = async (dirUri: Uri): Promise<unknown | void> => {
   }
 };
 
-export { readFile, createDirectory };
+const createFile = async (fileUri: Uri, data: string): Promise<unknown | void> => {
+  try {
+    const encodedData = new TextEncoder().encode(data);
+
+    await vscode.workspace.fs.writeFile(fileUri, encodedData);
+  } catch (error) {
+    return error;
+  }
+};
+
+export { readFile, createDirectory, createFile };
