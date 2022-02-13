@@ -3,6 +3,7 @@
   "displayName": "vscode-file-gen",
   "description": "A VSCode extension that generates files from user defined templates or groups of templates",
   "version": "0.0.1",
+  "publisher": "ben-m-j-taylor",
   "repository": "https://github.com/ben-m-j-taylor/vscode-file-gen",
   "engines": {
     "vscode": "^1.60.0"
