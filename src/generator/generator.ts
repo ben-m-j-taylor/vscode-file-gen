@@ -1,14 +1,20 @@
 import * as vscode from 'vscode';
 
+import Casing from '../enums/casing';
 import type FileTemplate from '../types/fileTemplateType';
 
 import { getConfig, validateConfig } from './config';
-import { readFile } from './fileSystem';
+import { readFile, createDirectory, createFile } from './fileSystem';
+import parseName from './nameParser';
+import parseTemplate from './templateParser';
 
 const generate = async (location: string, newDirectory: boolean) => {
-  const config = getConfig();
+  if (!location) {
+    vscode.window.showErrorMessage(`vscode-file-gen: The extension should only be run from the file explror context menu!`);
+    return;
+  }
 
-  console.log(`vscode-file-gen: generate: config`, config);
+  const config = getConfig();
 
   let { valid, validationErrors } = validateConfig(config);
 
@@ -49,6 +55,8 @@ const generate = async (location: string, newDirectory: boolean) => {
     return;
   }
 
+  const { camelCaseName, pascalCaseName, snakeCaseName, kebabCaseName } = parseName(specifiedName, (config.directoryNameCasing as Casing));
+
   const templateGroupDefinition = config.fileTemplateGroups?.find(tg => tg.name === templateOrTemplateGroup.label);
   const templateDefinition = config.fileTemplates?.find(t => t.name === templateOrTemplateGroup.label);
 
@@ -81,18 +89,55 @@ const generate = async (location: string, newDirectory: boolean) => {
     return;
   }
 
-  for (const template of templatesToGenerate) {
-    const filePath = `${workspaceRootPath}/${template.templateFilePath}`;
+  let parentDirectory = `${location}`;
 
-    const { data, error } = await readFile(vscode.Uri.file(filePath));
+  if (newDirectory) {
+    parentDirectory = `${location}/${specifiedName}`;
 
-    console.log('vscode-file-gen: generate: data', data);
-
-    if (error) {
-      vscode.window.showErrorMessage(`vscode-file-gen: Unable to read template file at "${filePath}"`);
-    }
+    await createDirectory(vscode.Uri.file(parentDirectory));
   }
 
+  for (const template of templatesToGenerate) {
+    const templateFilePath = `${workspaceRootPath}/${template.templateFilePath}`;
+
+    const { data, error } = await readFile(vscode.Uri.file(templateFilePath));
+
+    if (error || !data) {
+      vscode.window.showErrorMessage(`vscode-file-gen: Unable to read template file for ${template.name} at "${templateFilePath}"`);
+      continue;
+    }
+
+    // If the templates fileName includes a directory then create the directory
+    if (template.fileName.includes('/')) {
+      const subDirectoryName = template.fileName.split('/')[0];
+
+      const subDirectoryPath = `${parentDirectory}/${subDirectoryName}`;
+
+      const subDirCreationError = await createDirectory(vscode.Uri.file(subDirectoryPath));
+
+      if (subDirCreationError) {
+        vscode.window.showErrorMessage(`vscode-file-gen: Unable to create subdirectory for ${template.name} at "${subDirectoryPath}"`);
+        continue;
+      }
+    }
+
+    // Get the file name with any template strings parsed out
+    const fileName = parseTemplate(template.fileName, camelCaseName, pascalCaseName, snakeCaseName, kebabCaseName);
+
+    const parsedTemplate = parseTemplate(data, camelCaseName, pascalCaseName, snakeCaseName, kebabCaseName);
+
+    const fileUri = vscode.Uri.file(`${parentDirectory}/${fileName}`);
+
+    const fileCreationError = await createFile(fileUri, parsedTemplate);
+
+    console.log(fileUri);
+
+    if (fileCreationError) {
+      vscode.window.showErrorMessage(`vscode-file-gen: Unable to create file for ${template.name} at "${fileCreationError}"`);
+    } else {
+      await vscode.window.showTextDocument(fileUri, { preserveFocus: true, preview: false });
+    }
+  }
 };
 
 export default generate;

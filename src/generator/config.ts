@@ -1,27 +1,16 @@
 import * as vscode from 'vscode';
-import { platform } from 'process';
 
 import Config from '../types/configType';
 import Casing from '../enums/casing';
 
 const getConfig = (): Config => {
   const rawConfig = vscode.workspace.getConfiguration('vscode-file-gen');
-  const rawVscodeEolSetting = vscode.workspace.getConfiguration().files.eol;
-
-  let eol: string;
-
-  if (rawVscodeEolSetting === 'auto') {
-    eol = platform === 'win32' ? '\r\n' : '\n';
-  } else {
-    eol = rawVscodeEolSetting;
-  }
 
   return {
     directoryNameCasing: rawConfig['directory-name-casing'],
     fileTemplateGroups: rawConfig['file-template-groups'],
     fileTemplates: rawConfig['file-templates'],
-    onlyShowTemplateGroupsInPicker: rawConfig['only-show-template-groups-in-picker'],
-    eol: eol
+    onlyShowTemplateGroupsInPicker: rawConfig['only-show-template-groups-in-picker']
   };
 };
 
@@ -49,10 +38,6 @@ const validateConfig = (config: Config): { valid: boolean, validationErrors?: st
 
   if (typeof config.onlyShowTemplateGroupsInPicker === 'undefined') {
     validationErrors.push('only-show-template-groups-in-picker not set');
-  }
-
-  if (typeof config.eol === 'undefined') {
-    validationErrors.push('eol not set');
   }
 
   return {

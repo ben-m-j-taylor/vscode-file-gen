@@ -7,7 +7,6 @@ type Config = {
   fileTemplateGroups: FileTemplateGroup[] | null;
   fileTemplates: FileTemplate[] | null;
   onlyShowTemplateGroupsInPicker: boolean;
-  eol: string;
 };
 
 export default Config;

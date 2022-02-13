@@ -1,92 +1,97 @@
 {
   "name": "vscode-file-gen",
-	"displayName": "vscode-file-gen",
-	"description": "A VSCode extension that generates files from user defined templates or groups of templates",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.60.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-        "onCommand:vscode-file-gen.generateFilesInDirectory",
-		"onCommand:vscode-file-gen.generateNewDirectoryWithFiles"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "vscode-file-gen.generateFilesInDirectory",
-				"title": "Generate files in directory"
-			},
-			{
-				"command": "vscode-file-gen.generateNewDirectoryWithFiles",
-				"title": "Generate new directory with files"
-			}
-		],
-		"menus": {
-			"explorer/context": [
-				{
-					"command": "vscode-file-gen.generateFilesInDirectory",
-					"group": "file-gen"
-				},
-				{
-					"command": "vscode-file-gen.generateNewDirectoryWithFiles",
-					"group": "file-gen"
-				}
-			]
-		},
-		"configuration": {
-			"title": "VSCode File Gen",
-			"properties": {
-				"vscode-file-gen.directory-name-casing": {
-					"description": "The casing that will be used when specifying and parsing parent directory names",
-					"enum": [
-						"camelCase",
-						"PascalCase",
-						"snake_case",
-						"kebab-case"
-					],
-					"default": null
-				},
-				"vscode-file-gen.file-template-groups": {
-					"description": "Groups of file templates",
-					"type": "array",
-					"default": null
-				},
-				"vscode-file-gen.file-templates": {
-					"description": "File template definitions",
-					"type": "array",
-					"default": null
-				},
-				"vscode-file-gen.only-show-template-groups-in-picker": {
-					"description": "Only show template groups in the picker, instead of both groups and all file templates",
-					"type": "boolean",
-					"default": false
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.60.0",
-		"@types/glob": "^7.1.4",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"@typescript-eslint/eslint-plugin": "^4.31.1",
-		"@typescript-eslint/parser": "^4.31.1",
-		"eslint": "^7.32.0",
-		"glob": "^7.1.7",
-		"mocha": "^9.1.1",
-		"typescript": "^4.4.3",
-		"@vscode/test-electron": "^1.6.2"
-	}
+  "displayName": "vscode-file-gen",
+  "description": "A VSCode extension that generates files from user defined templates or groups of templates",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:vscode-file-gen.generateFilesInDirectory",
+    "onCommand:vscode-file-gen.generateNewDirectoryWithFiles"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-file-gen.generateFilesInDirectory",
+        "title": "Generate files in directory"
+      },
+      {
+        "command": "vscode-file-gen.generateNewDirectoryWithFiles",
+        "title": "Generate new directory with files"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "vscode-file-gen.generateFilesInDirectory",
+          "group": "file-gen"
+        },
+        {
+          "command": "vscode-file-gen.generateNewDirectoryWithFiles",
+          "group": "file-gen"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VSCode File Gen",
+      "properties": {
+        "vscode-file-gen.directory-name-casing": {
+          "description": "The casing that will be used when specifying and parsing parent directory names",
+          "enum": [
+            "camelCase",
+            "PascalCase",
+            "snake_case",
+            "kebab-case"
+          ],
+          "default": null
+        },
+        "vscode-file-gen.file-template-groups": {
+          "description": "Groups of file templates",
+          "type": "array",
+          "default": null
+        },
+        "vscode-file-gen.file-templates": {
+          "description": "File template definitions",
+          "type": "array",
+          "default": null
+        },
+        "vscode-file-gen.only-show-template-groups-in-picker": {
+          "description": "Only show template groups in the picker, instead of both groups and all file templates",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "unit-test": "jest"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.4",
+    "@types/jest": "^27.4.0",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "@vscode/test-electron": "^1.6.2",
+    "eslint": "^7.32.0",
+    "glob": "^7.1.7",
+    "jest": "^27.5.1",
+    "mocha": "^9.1.1",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.4.3"
+  }
 }
