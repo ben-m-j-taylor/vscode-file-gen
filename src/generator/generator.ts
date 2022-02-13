@@ -42,12 +42,18 @@ const generate = async (location: string, newDirectory: boolean) => {
 
   const templatePickOptions = config.fileTemplates?.map(t => ({ label: t.name, detail: t.description || '' })) || [];
 
-  const quickPickValues = [
+  let quickPickValues = [
     { label: 'File Template Groups', kind: -1 },
     ...templateGroupPickOptions,
-    { label: 'File Templates', kind: -1 },
-    ...templatePickOptions
   ];
+
+  if (!config.onlyShowTemplateGroupsInPicker) {
+    quickPickValues = [
+      ...quickPickValues, 
+      { label: 'File Templates', kind: -1 },
+      ...templatePickOptions
+    ];
+  }
 
   const templateOrTemplateGroup = await vscode.window.showQuickPick(quickPickValues);
 
